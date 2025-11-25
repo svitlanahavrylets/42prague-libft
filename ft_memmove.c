@@ -1,39 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shavryle <shavryle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/14 09:12:28 by shavryle          #+#    #+#             */
-/*   Updated: 2025/11/18 11:30:58 by shavryle         ###   ########.fr       */
+/*   Created: 2025/11/11 14:48:36 by shavryle          #+#    #+#             */
+/*   Updated: 2025/11/14 14:41:43 by shavryle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+void	*ft_memmove(void *dst, const void *src, size_t n)
 {
-	size_t	i;
-	size_t	j;
+	unsigned char		*ptr_dst;
+	const unsigned char	*ptr_src;
+	size_t				i;
 
-	if (len == 0 && !big)
+	if (!dst && !src)
 		return (NULL);
-	if (little[0] == '\0')
-		return ((char *)big);
+	ptr_dst = (unsigned char *)dst;
+	ptr_src = (const unsigned char *)src;
 	i = 0;
-	while (big[i] && i < len)
+	if (ptr_dst > ptr_src)
 	{
-		j = 0;
-		while (i + j < len
-			&& big[i + j]
-			&& big[i + j] == little[j])
-		{
-			j++;
-			if (little[j] == '\0')
-				return ((char *)big + i);
-		}
-		i++;
+		while (n--)
+			ptr_dst[n] = ptr_src[n];
 	}
-	return (NULL);
+	else
+	{
+		while (i < n)
+		{
+			ptr_dst[i] = ptr_src[i];
+			i++;
+		}
+	}
+	return (dst);
 }

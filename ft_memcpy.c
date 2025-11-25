@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shavryle <shavryle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/14 09:12:28 by shavryle          #+#    #+#             */
-/*   Updated: 2025/11/18 11:30:58 by shavryle         ###   ########.fr       */
+/*   Created: 2025/11/11 14:48:30 by shavryle          #+#    #+#             */
+/*   Updated: 2025/11/17 18:58:50 by shavryle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	size_t	i;
-	size_t	j;
+	unsigned char	*ptr_dst;
+	unsigned char	*ptr_src;
 
-	if (len == 0 && !big)
-		return (NULL);
-	if (little[0] == '\0')
-		return ((char *)big);
-	i = 0;
-	while (big[i] && i < len)
+	if (dst == 0 && src == 0)
+		return (dst);
+	ptr_dst = (unsigned char *)dst;
+	ptr_src = (unsigned char *)src;
+	while (n > 0)
 	{
-		j = 0;
-		while (i + j < len
-			&& big[i + j]
-			&& big[i + j] == little[j])
-		{
-			j++;
-			if (little[j] == '\0')
-				return ((char *)big + i);
-		}
-		i++;
+		*ptr_dst = *ptr_src;
+		ptr_dst++;
+		ptr_src++;
+		n--;
 	}
-	return (NULL);
+	return (dst);
 }

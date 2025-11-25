@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shavryle <shavryle@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/17 11:45:03 by shavryle          #+#    #+#             */
+/*   Updated: 2025/11/17 18:54:28 by shavryle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static size_t	count_digits(long nb)
@@ -13,52 +25,53 @@ static size_t	count_digits(long nb)
 	return (count);
 }
 
-static char *itoa_zero(void)
+static char	*itoa_zero(void)
 {
-    char *str;
+	char	*str;
 
-    str = malloc(2); 
-    if (!str)
-        return (NULL);
-    str[0] = '0';
-    str[1] = '\0';
-    return (str); 
+	str = malloc(2);
+	if (!str)
+		return (NULL);
+	str[0] = '0';
+	str[1] = '\0';
+	return (str);
 }
 
-static long  handle_negative(long nb, int *is_negative)
+static long	handle_negative(long nb, int *is_negative)
 {
-    if (nb < 0)
-    {
-        nb = -nb;
-        *is_negative = 1;
-    }
-    return (nb);
+	if (nb < 0)
+	{
+		nb = -nb;
+		*is_negative = 1;
+	}
+	return (nb);
 }
-char *ft_itoa(int n)
-{
-    long    nb;
-    size_t  digit_count;
-    int     is_negative;
-    char    *str;
 
-    is_negative = 0;
-    nb = n;
-    if (n == 0)
-        return (itoa_zero());
-    nb = handle_negative(nb, &is_negative);
-    digit_count = count_digits(nb) + is_negative;
-    str = malloc(digit_count + 1);
-    if (!str)
-        return (NULL);
-    str[digit_count] = '\0';
-    digit_count--;
-    while (nb > 0)
-    {
-        str[digit_count] = '0' + (nb % 10);
-        digit_count--;
-        nb /= 10;
-    }
-    if (is_negative)
-        str[0] = '-';
-    return (str);
+char	*ft_itoa(int n)
+{
+	long	nb;
+	size_t	digit_count;
+	int		is_negative;
+	char	*str;
+
+	is_negative = 0;
+	nb = n;
+	if (n == 0)
+		return (itoa_zero());
+	nb = handle_negative(nb, &is_negative);
+	digit_count = count_digits(nb) + is_negative;
+	str = malloc(digit_count + 1);
+	if (!str)
+		return (NULL);
+	str[digit_count] = '\0';
+	digit_count--;
+	while (nb > 0)
+	{
+		str[digit_count] = '0' + (nb % 10);
+		digit_count--;
+		nb /= 10;
+	}
+	if (is_negative)
+		str[0] = '-';
+	return (str);
 }
